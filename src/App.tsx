@@ -7,13 +7,25 @@ import {
   ThemeProvider,
 } from "@material-ui/core/styles";
 
-let theme = createMuiTheme();
+import Header from "./components/Header";
+
+let theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#d10042",
+    },
+    secondary: {
+      main: "#97006b",
+    },
+  },
+});
 theme = responsiveFontSizes(theme);
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <Header />
       <Routes />
     </ThemeProvider>
   );
