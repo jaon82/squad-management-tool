@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core/styles";
 
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 let theme = createMuiTheme({
   palette: {
@@ -27,6 +28,7 @@ function App() {
       <CssBaseline />
       <Header />
       <Routes />
+      <Footer />
     </ThemeProvider>
   );
 }

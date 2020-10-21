@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     avatar: {
       backgroundColor: "#f2f4f7",
-      color: "#4a4a4a",
+      color: theme.palette.getContrastText("#f2f4f7"),
       marginLeft: theme.spacing(1),
     },
   })
