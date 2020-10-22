@@ -45,7 +45,7 @@ export default function Header() {
           >
             <img src={logoVenturus} alt="Logo" />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h5" className={classes.title}>
             Squad Management Tool
           </Typography>
           <Typography>John Doe</Typography>

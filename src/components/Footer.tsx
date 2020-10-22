@@ -6,11 +6,6 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      position: "absolute",
-      bottom: 0,
-      width: "100%",
-    },
     appBar: {
       background: "#eae1e8",
     },
@@ -27,14 +22,12 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static" className={classes.appBar}>
-        <Toolbar>
-          <Typography className={classes.title}>
-            {year} - All rights reserved
-          </Typography>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar position="static" className={classes.appBar}>
+      <Toolbar>
+        <Typography className={classes.title}>
+          {year} - All rights reserved
+        </Typography>
+      </Toolbar>
+    </AppBar>
   );
 }
