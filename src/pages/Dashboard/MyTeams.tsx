@@ -51,7 +51,7 @@ function MyTeams() {
   return (
     <div className={classes.root}>
       <MaterialTable
-        title="My Teams"
+        title="My teams"
         columns={[
           { title: "Name", field: "name" },
           { title: "Description", field: "description" },

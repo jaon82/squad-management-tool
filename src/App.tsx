@@ -51,16 +51,10 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: "100%",
     },
     mainContainer: {
-      margin: theme.spacing(5),
-      position: "relative",
-      overflowY: "auto",
       background: "yellow",
     },
     main: {
-      position: "absolute",
-      height: "100%",
-      width: "100%",
-      display: "flex",
+      padding: 40,
     },
   })
 );

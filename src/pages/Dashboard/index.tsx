@@ -2,6 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 
 import MyTeams from "./MyTeams";
+import TopFive from "./TopFive";
 
 function Dashboard() {
   return (
@@ -10,18 +11,21 @@ function Dashboard() {
       direction="row"
       justify="space-between"
       alignItems="stretch"
+      spacing={5}
     >
-      <Grid item md={5} xs={12}>
+      <Grid item md={6} xs={12}>
         <MyTeams />
       </Grid>
-      <Grid item md={5} xs={12}>
+      <Grid item md={6} xs={12}>
         <Grid
           container
           direction="column"
           justify="space-between"
           alignItems="stretch"
         >
-          <Grid item>a</Grid>
+          <Grid item>
+            <TopFive />
+          </Grid>
           <Grid item>
             <MyTeams />
           </Grid>
