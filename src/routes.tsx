@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Dashboard from "./pages/Dashboard/";
-import TeamForm from "./pages/TeamForm";
+import TeamForm from "./pages/Team/TeamForm";
 
 function Routes() {
   return (

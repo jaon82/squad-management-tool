@@ -38,6 +38,18 @@ let theme = createMuiTheme({
         },
       },
     },
+    MuiFormLabel: {
+      root: {
+        color: "inherit",
+        fontWeight: 500,
+        lineHeight: 2,
+      },
+    },
+    MuiButton: {
+      containedSecondary: {
+        backgroundColor: "#96007b",
+      },
+    },
   },
 });
 theme = responsiveFontSizes(theme);
