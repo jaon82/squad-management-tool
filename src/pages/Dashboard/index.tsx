@@ -1,10 +1,20 @@
 import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
 import MyTeams from "./MyTeams";
 import TopFive from "./TopFive";
+import PickedPlayer from "./PickedPlayer";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    height: "100%",
+  },
+}));
 
 function Dashboard() {
+  const classes = useStyles();
+
   return (
     <Grid
       container
@@ -22,12 +32,13 @@ function Dashboard() {
           direction="column"
           justify="space-between"
           alignItems="stretch"
+          className={classes.root}
         >
           <Grid item>
             <TopFive />
           </Grid>
-          <Grid item>
-            <MyTeams />
+          <Grid item xs>
+            <PickedPlayer />
           </Grid>
         </Grid>
       </Grid>

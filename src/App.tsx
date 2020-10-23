@@ -50,9 +50,6 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       minHeight: "100%",
     },
-    mainContainer: {
-      background: "yellow",
-    },
     main: {
       padding: 40,
     },
@@ -76,7 +73,7 @@ function App() {
           <Grid item>
             <Header />
           </Grid>
-          <Grid item xs className={classes.mainContainer}>
+          <Grid item xs>
             <main className={classes.main}>
               <Routes />
             </main>

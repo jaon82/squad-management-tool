@@ -10,9 +10,6 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: "100%",
       background: "#fff",
     },
-    createButton: {
-      background: `linear-gradient(to right, "#d10042", "#97006b")`,
-    },
   })
 );
 
