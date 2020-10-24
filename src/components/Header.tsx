@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Header() {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <div className={classes.root}>
@@ -42,6 +44,9 @@ export default function Header() {
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
+            onClick={() => {
+              history.push("/");
+            }}
           >
             <img src={logoVenturus} alt="Logo" />
           </IconButton>

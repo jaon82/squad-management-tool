@@ -5,14 +5,7 @@ import {
   createMuiTheme,
   responsiveFontSizes,
   ThemeProvider,
-  makeStyles,
-  createStyles,
-  Theme,
 } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 
 let theme = createMuiTheme({
   palette: {
@@ -54,47 +47,11 @@ let theme = createMuiTheme({
 });
 theme = responsiveFontSizes(theme);
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      height: "100vh",
-    },
-    container: {
-      minHeight: "100%",
-    },
-    main: {
-      padding: 40,
-    },
-  })
-);
-
 function App() {
-  const classes = useStyles();
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <div className={classes.root}>
-        <Grid
-          container
-          direction="column"
-          justify="space-between"
-          alignItems="stretch"
-          className={classes.container}
-        >
-          <Grid item>
-            <Header />
-          </Grid>
-          <Grid item xs>
-            <main className={classes.main}>
-              <Routes />
-            </main>
-          </Grid>
-          <Grid item>
-            <Footer />
-          </Grid>
-        </Grid>
-      </div>
+      <Routes />
     </ThemeProvider>
   );
 }
