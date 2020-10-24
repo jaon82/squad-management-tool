@@ -36,7 +36,13 @@ const AppRoute = (routeProps: AppRouteProps) => {
   const storageToken = "@venturus-squad-management-tool";
   const classes = useStyles();
   const Component = routeProps.component;
-  const [teams, setTeams] = useState<Team[]>([]);
+  let storageTeams = [];
+  const storageString = localStorage.getItem(storageToken);
+  if (storageString) {
+    const storageObject = JSON.parse(storageString);
+    storageTeams = storageObject.teams;
+  }
+  const [teams, setTeams] = useState<Team[]>(storageTeams);
 
   const updateTeams = (teams: Team[]) => {
     const storageString = localStorage.getItem(storageToken);
@@ -45,14 +51,6 @@ const AppRoute = (routeProps: AppRouteProps) => {
     localStorage.setItem(storageToken, JSON.stringify(storageObject));
     setTeams(teams);
   };
-
-  useEffect(() => {
-    const storageString = localStorage.getItem(storageToken);
-    if (storageString) {
-      const storageObject = JSON.parse(storageString);
-      setTeams(storageObject.teams);
-    }
-  }, []);
 
   return (
     <div className={classes.root}>

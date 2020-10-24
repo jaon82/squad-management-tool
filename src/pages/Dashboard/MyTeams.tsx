@@ -4,6 +4,8 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Add from "@material-ui/icons/Add";
 import MaterialTable from "material-table";
 
+import Team from "../../helpers/Team";
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -13,20 +15,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface Data {
-  id: number;
-  name: string;
-  description: string;
+interface Props {
+  teams: Team[];
 }
-
-const rows: Data[] = [
-  { id: 1, name: "Barcelona", description: "Barcelona Squad" },
-  { id: 2, name: "Real Madrid", description: "Real Madrid Squad" },
-  { id: 3, name: "Milan", description: "Milan Squad" },
-  { id: 4, name: "Liverpool", description: "Liverpool Squad" },
-  { id: 5, name: "Bayern Munich", description: "Bayern Munich Squad" },
-  { id: 6, name: "Lazio Munich", description: "Lazio Munich Squad" },
-];
 
 function AddBoxLarge() {
   return (
@@ -41,7 +32,7 @@ function AddBoxLarge() {
   );
 }
 
-function MyTeams() {
+function MyTeams({ teams }: Props) {
   const classes = useStyles();
   const history = useHistory();
 
@@ -53,7 +44,7 @@ function MyTeams() {
           { title: "Name", field: "name" },
           { title: "Description", field: "description" },
         ]}
-        data={rows}
+        data={teams}
         options={{
           sorting: true,
           search: false,
@@ -85,7 +76,7 @@ function MyTeams() {
             icon: "edit",
             tooltip: "Edit",
             onClick: (event, rowData: any) =>
-              history.push(`/team/${rowData.id}`),
+              history.push(`/team/${rowData.name}`),
           },
         ]}
       />

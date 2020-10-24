@@ -6,13 +6,19 @@ import MyTeams from "./MyTeams";
 import TopFive from "./TopFive";
 import PickedPlayer from "./PickedPlayer";
 
+import Team from "../../helpers/Team";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "100%",
   },
 }));
 
-function Dashboard() {
+interface Props {
+  teams: Team[];
+}
+
+function Dashboard({ teams }: Props) {
   const classes = useStyles();
 
   return (
@@ -24,7 +30,7 @@ function Dashboard() {
       spacing={5}
     >
       <Grid item md={6} xs={12}>
-        <MyTeams />
+        <MyTeams teams={teams} />
       </Grid>
       <Grid item md={6} xs={12}>
         <Grid

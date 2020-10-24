@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import { useForm, Controller } from "react-hook-form";
@@ -113,9 +113,14 @@ interface Props {
   updateTeams: any;
 }
 
+interface RouteParams {
+  name: string;
+}
+
 export default function TeamForm(props: Props) {
   const classes = useStyles();
   const history = useHistory();
+  const params = useParams<RouteParams>();
 
   const defaultValues = {
     name: "",
@@ -143,22 +148,35 @@ export default function TeamForm(props: Props) {
     mode: "onChange",
   });
 
-  /*useEffect(() => {
-    console.log("RESET");
-    const defaultValues = {
-      name: "",
-      description: "",
-      website: "",
-      type: "",
-      tags: [],
-      formation: "",
-    };
-    reset(defaultValues);
-  }, [reset]);*/
+  useEffect(() => {
+    if (params.name) {
+      const team = props.teams.find((team) => team.name === params.name);
+      if (!team) {
+        history.push("/");
+      }
+      const defaultValues = {
+        name: team?.name,
+        description: team?.description,
+        website: team?.website,
+        type: team?.type,
+        tags: team?.tags,
+        formation: team?.formation,
+      };
+      reset(defaultValues);
+    }
+  }, [history, params.name, props.teams, reset]);
 
   const onSubmit = (teamData: Team) => {
-    if (props.teams.find((team) => team.name === teamData.name)) {
+    const teamIndex = props.teams.findIndex(
+      (team) => team.name === teamData.name
+    );
+    if (teamIndex !== -1 && !params.name) {
       alert("Team exists");
+    } else if (teamIndex !== -1 && params.name) {
+      const teams = [...props.teams];
+      teams[teamIndex] = teamData;
+      props.updateTeams(teams);
+      history.push("/");
     } else {
       const teams = [...props.teams, teamData];
       props.updateTeams(teams);
@@ -307,7 +325,7 @@ export default function TeamForm(props: Props) {
                               chipContainer: classes.fullHeight,
                             }}
                             onChange={(chips) => props.onChange(chips)}
-                            value={props.value}
+                            defaultValue={props.value}
                           />
                         </FormControl>
                       )}

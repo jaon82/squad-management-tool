@@ -11,8 +11,8 @@ function Routes() {
     <BrowserRouter>
       <Switch>
         <AppRoute exact path="/" component={Dashboard} />
-        <AppRoute path="/team" component={TeamForm} />
-        <AppRoute path="/team/:id" component={TeamForm} />
+        <AppRoute exact path="/team" component={TeamForm} />
+        <AppRoute exact path="/team/:name" component={TeamForm} />
       </Switch>
     </BrowserRouter>
   );
