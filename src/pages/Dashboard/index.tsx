@@ -7,6 +7,7 @@ import TopFive from "./TopFive";
 import PickedPlayer from "./PickedPlayer";
 
 import Team from "../../helpers/Team";
+import Props from "../../helpers/Props";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,11 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface Props {
-  teams: Team[];
-}
-
-function Dashboard({ teams }: Props) {
+function Dashboard(props: Props) {
   const classes = useStyles();
 
   return (
@@ -30,7 +27,7 @@ function Dashboard({ teams }: Props) {
       spacing={5}
     >
       <Grid item md={6} xs={12}>
-        <MyTeams teams={teams} />
+        <MyTeams {...props} />
       </Grid>
       <Grid item md={6} xs={12}>
         <Grid

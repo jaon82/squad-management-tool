@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Add from "@material-ui/icons/Add";
 import MaterialTable from "material-table";
 
+import Dialog from "../../components/Dialog";
+
 import Team from "../../helpers/Team";
+import Props from "../../helpers/Props";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -14,10 +17,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-
-interface Props {
-  teams: Team[];
-}
 
 function AddBoxLarge() {
   return (
@@ -32,9 +31,34 @@ function AddBoxLarge() {
   );
 }
 
-function MyTeams({ teams }: Props) {
+function MyTeams(props: Props) {
   const classes = useStyles();
   const history = useHistory();
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogText, setDialogText] = useState("");
+  const [teamToRemove, setTeamToRemove] = useState("");
+
+  const deleteTeam = (teamName: string) => {
+    setTeamToRemove(teamName);
+    setDialogText(`Do you want to remove team ${teamName}?`);
+    setDialogOpen(true);
+  };
+
+  const dialogClose = () => {
+    setDialogOpen(false);
+  };
+
+  const dialogConfirm = () => {
+    setDialogOpen(false);
+    const teamIndex = props.teams.findIndex(
+      (team) => team.name === teamToRemove
+    );
+    if (teamIndex !== -1) {
+      let teams = [...props.teams];
+      teams.splice(teamIndex, 1);
+      props.updateTeams(teams);
+    }
+  };
 
   return (
     <div className={classes.root}>
@@ -44,7 +68,7 @@ function MyTeams({ teams }: Props) {
           { title: "Name", field: "name" },
           { title: "Description", field: "description" },
         ]}
-        data={teams}
+        data={props.teams}
         options={{
           sorting: true,
           search: false,
@@ -63,8 +87,7 @@ function MyTeams({ teams }: Props) {
           {
             icon: "delete",
             tooltip: "Delete",
-            onClick: (event, rowData: any) =>
-              alert("You delete " + rowData.name),
+            onClick: (event, rowData: any) => deleteTeam(rowData.name),
           },
           {
             icon: "share",
@@ -79,6 +102,13 @@ function MyTeams({ teams }: Props) {
               history.push(`/team/${rowData.name}`),
           },
         ]}
+      />
+      <Dialog
+        open={dialogOpen}
+        close={dialogClose}
+        confirm={dialogConfirm}
+        title="Remove team?"
+        text={dialogText}
       />
     </div>
   );

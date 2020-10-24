@@ -22,8 +22,10 @@ import Button from "@material-ui/core/Button";
 import ChipInput from "material-ui-chip-input";
 
 import PlayerCard from "./PlayerCard";
+
 import Team from "../../helpers/Team";
 import Player from "../../helpers/Player";
+import Props from "../../helpers/Props";
 
 const useStyles = makeStyles((theme) => ({
   marginTop: {
@@ -107,11 +109,6 @@ const players: Player[] = [
     weight: "90 kg",
   },
 ];
-
-interface Props {
-  teams: Team[];
-  updateTeams: any;
-}
 
 interface RouteParams {
   name: string;
