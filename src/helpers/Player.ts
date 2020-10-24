@@ -13,3 +13,4 @@ export default interface Player {
   height: string;
   weight: string;
 }
+

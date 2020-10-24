@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, FocusEvent, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
@@ -26,6 +26,8 @@ import PlayerCard from "./PlayerCard";
 import Team from "../../helpers/Team";
 import Player from "../../helpers/Player";
 import Props from "../../helpers/Props";
+
+import api from "../../services/api";
 
 const useStyles = makeStyles((theme) => ({
   marginTop: {
@@ -60,55 +62,11 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "flex-start",
     alignContent: "flex-start",
   },
+  playersContainer: {
+    maxHeight: "90vh",
+    overflowY: "auto",
+  },
 }));
-
-const players: Player[] = [
-  {
-    player_id: 154,
-    player_name: "L. Messi",
-    firstname: "Lionel Andrés",
-    lastname: "Messi Cuccittini",
-    number: null,
-    position: "Attacker",
-    age: 32,
-    birth_date: "24/06/1987",
-    birth_place: "Rosario",
-    birth_country: "Argentina",
-    nationality: "Argentina",
-    height: "170 cm",
-    weight: "72 kg",
-  },
-  {
-    player_id: 90421,
-    player_name: "Giuseppe Messina",
-    firstname: "Giuseppe",
-    lastname: "Messina",
-    number: null,
-    position: "Goalkeeper",
-    age: 26,
-    birth_date: "12/02/1993",
-    birth_place: "Enna",
-    birth_country: "Italy",
-    nationality: "Italy",
-    height: "186 cm",
-    weight: "71 kg",
-  },
-  {
-    player_id: 21849,
-    player_name: "Messi Yagousseti Essomba",
-    firstname: "Messi",
-    lastname: "Yagousseti Essomba",
-    number: null,
-    position: "Attacker",
-    age: 30,
-    birth_date: "18/11/1989",
-    birth_place: "Yaoundé",
-    birth_country: "Cameroon",
-    nationality: "Cameroon",
-    height: "186 cm",
-    weight: "90 kg",
-  },
-];
 
 interface RouteParams {
   name: string;
@@ -118,6 +76,7 @@ export default function TeamForm(props: Props) {
   const classes = useStyles();
   const history = useHistory();
   const params = useParams<RouteParams>();
+  const [players, setPlayers] = useState<Player[]>([]);
 
   const defaultValues = {
     name: "",
@@ -179,6 +138,16 @@ export default function TeamForm(props: Props) {
       props.updateTeams(teams);
       history.push("/");
     }
+  };
+
+  const searchPlayer = (event: FocusEvent<HTMLInputElement>) => {
+    const playerName = event.target.value;
+    api.get(`players/search/${playerName}`).then((response) => {
+      if (response.data.api.results) {
+        const apiPlayers = response.data.api.players;
+        setPlayers(apiPlayers);
+      }
+    });
   };
 
   return (
@@ -421,10 +390,19 @@ export default function TeamForm(props: Props) {
                   <Grid item>
                     <FormControl fullWidth size="small">
                       <FormLabel>Search Players</FormLabel>
-                      <OutlinedInput placeholder="Ronal" />
+                      <OutlinedInput
+                        placeholder="Ronal"
+                        onBlur={searchPlayer}
+                      />
                     </FormControl>
                   </Grid>
-                  <Grid item className={classes.marginTop}>
+                  <Grid
+                    item
+                    className={clsx(
+                      classes.marginTop,
+                      classes.playersContainer
+                    )}
+                  >
                     {players.map((player) => (
                       <PlayerCard data={player} key={player.player_id} />
                     ))}
