@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Route } from "react-router-dom";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+
+import Team from "./helpers/Team";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,9 +28,31 @@ interface AppRouteProps {
   exact?: boolean;
 }
 
+interface StorageTeams {
+  teams: Team[];
+}
+
 const AppRoute = (routeProps: AppRouteProps) => {
+  const storageToken = "@venturus-squad-management-tool";
   const classes = useStyles();
   const Component = routeProps.component;
+  const [teams, setTeams] = useState<Team[]>([]);
+
+  const updateTeams = (teams: Team[]) => {
+    const storageString = localStorage.getItem(storageToken);
+    let storageObject = storageString ? JSON.parse(storageString) : {};
+    storageObject.teams = teams;
+    localStorage.setItem(storageToken, JSON.stringify(storageObject));
+    setTeams(teams);
+  };
+
+  useEffect(() => {
+    const storageString = localStorage.getItem(storageToken);
+    if (storageString) {
+      const storageObject = JSON.parse(storageString);
+      setTeams(storageObject.teams);
+    }
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -47,7 +71,9 @@ const AppRoute = (routeProps: AppRouteProps) => {
             <Route
               exact
               path={routeProps.path}
-              render={(props) => <Component {...props} />}
+              render={(props) => (
+                <Component {...props} teams={teams} updateTeams={updateTeams} />
+              )}
             />
           </main>
         </Grid>
