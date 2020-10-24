@@ -6,7 +6,6 @@ import MyTeams from "./MyTeams";
 import TopFive from "./TopFive";
 import PickedPlayer from "./PickedPlayer";
 
-import Team from "../../helpers/Team";
 import Props from "../../helpers/Props";
 
 const useStyles = makeStyles((theme) => ({

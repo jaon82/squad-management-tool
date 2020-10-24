@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FocusEvent, useEffect, useState } from "react";
+import React, { FocusEvent, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
@@ -26,6 +26,7 @@ import PlayerCard from "./PlayerCard";
 import Team from "../../helpers/Team";
 import Player from "../../helpers/Player";
 import Props from "../../helpers/Props";
+import Formation from "./Formation";
 
 import api from "../../services/api";
 
@@ -76,6 +77,18 @@ export default function TeamForm(props: Props) {
   const classes = useStyles();
   const history = useHistory();
   const params = useParams<RouteParams>();
+  const formations = [
+    "3 - 2 - 2 - 3",
+    "3 - 2 - 3 - 2",
+    "3 - 4 - 3",
+    "3 - 5 - 2",
+    "4 - 2 - 3 - 1",
+    "4 - 3 - 2 - 1",
+    "4 - 3 - 3",
+    "4 - 4 - 2",
+    "4 - 5 - 1",
+    "5 - 4 - 1",
+  ];
   const [players, setPlayers] = useState<Player[]>([]);
 
   const defaultValues = {
@@ -341,9 +354,11 @@ export default function TeamForm(props: Props) {
                             <MenuItem value="">
                               <em>None</em>
                             </MenuItem>
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            {formations.map((item) => (
+                              <MenuItem value={item} key={item}>
+                                {item}
+                              </MenuItem>
+                            ))}
                           </Select>
                         </FormControl>
                       )}
@@ -351,10 +366,9 @@ export default function TeamForm(props: Props) {
                       control={control}
                     />
                   </Grid>
-                  <Grid
-                    item
-                    className={clsx(classes.marginTop, classes.field)}
-                  ></Grid>
+                  <Grid item className={clsx(classes.marginTop, classes.field)}>
+                    <Formation control={control} />
+                  </Grid>
                   <Grid item className={classes.marginTop}>
                     <Button
                       variant="contained"

@@ -6,7 +6,6 @@ import MaterialTable from "material-table";
 
 import Dialog from "../../components/Dialog";
 
-import Team from "../../helpers/Team";
 import Props from "../../helpers/Props";
 
 const useStyles = makeStyles((theme: Theme) =>

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { DragEvent } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 
 import Player from "../../helpers/Player";
+
+import playerPlaceholder from "../../images/player-placeholder.png";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -35,8 +37,24 @@ interface DataProps {
 export default function PlayerCard(props: DataProps) {
   const classes = useStyles();
 
+  const onDragPlayerHandler = (ev: DragEvent, player: Player) => {
+    console.log("event", ev);
+    console.log("player", player);
+    ev.dataTransfer.setData("playerID", player.player_id.toString());
+    ev.dataTransfer.setData("playerName", player.player_name);
+    var img = new Image();
+    img.src = playerPlaceholder;
+    ev.dataTransfer.setDragImage(img, 50, 50);
+    ev.dataTransfer.setData("text/plain", player.player_id.toString());
+  };
+
   return (
-    <Grid item className={classes.container}>
+    <Grid
+      item
+      className={classes.container}
+      draggable="true"
+      onDragStart={(event) => onDragPlayerHandler(event, props.data)}
+    >
       <Grid
         container
         direction="row"
