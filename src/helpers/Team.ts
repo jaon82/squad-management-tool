@@ -1,4 +1,5 @@
 export default interface Team {
+  id: number;
   name: string;
   description: string;
   website: string;

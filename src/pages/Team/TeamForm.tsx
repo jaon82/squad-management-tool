@@ -70,8 +70,206 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface RouteParams {
-  name: string;
+  id: string;
 }
+
+const fakePlayers: Player[] = [
+  {
+    player_id: 154,
+    player_name: "L. Messi",
+    firstname: "Lionel Andrés",
+    lastname: "Messi Cuccittini",
+    number: null,
+    position: "Attacker",
+    age: 32,
+    birth_date: "24/06/1987",
+    birth_place: "Rosario",
+    birth_country: "Argentina",
+    nationality: "Argentina",
+    height: "170 cm",
+    weight: "72 kg",
+  },
+  {
+    player_id: 90421,
+    player_name: "Giuseppe Messina",
+    firstname: "Giuseppe",
+    lastname: "Messina",
+    number: null,
+    position: "Goalkeeper",
+    age: 26,
+    birth_date: "12/02/1993",
+    birth_place: "Enna",
+    birth_country: "Italy",
+    nationality: "Italy",
+    height: "186 cm",
+    weight: "71 kg",
+  },
+  {
+    player_id: 21849,
+    player_name: "Messi Yagousseti Essomba Mbambe",
+    firstname: "Messi",
+    lastname: "Yagousseti Essomba",
+    number: null,
+    position: "Attacker",
+    age: 30,
+    birth_date: "18/11/1989",
+    birth_place: "Yaoundé",
+    birth_country: "Cameroon",
+    nationality: "Cameroon",
+    height: "186 cm",
+    weight: "90 kg",
+  },
+  {
+    player_id: 23482,
+    player_name: "Dylan Mamessier",
+    firstname: "Dylan",
+    lastname: "Mamessier",
+    number: null,
+    position: "Attacker",
+    age: 24,
+    birth_date: "02/09/1995",
+    birth_place: "Paray-le-Monial",
+    birth_country: "France",
+    nationality: "France",
+    height: "174 cm",
+    weight: "67 kg",
+  },
+  {
+    player_id: 272,
+    player_name: "Adrien Rabiot",
+    firstname: "Adrien",
+    lastname: "Rabiot",
+    number: null,
+    position: "Midfielder",
+    age: 24,
+    birth_date: "03/04/1995",
+    birth_place: "Saint-Maurice",
+    birth_country: "France",
+    nationality: "France",
+    height: "188 cm",
+    weight: "71 kg",
+  },
+  {
+    player_id: 85062,
+    player_name: "Thiago Motta",
+    firstname: "Thiago",
+    lastname: "Motta",
+    number: null,
+    position: "Midfielder",
+    age: 36,
+    birth_date: "28/08/1982",
+    birth_place: "São Bernardo do Campo",
+    birth_country: "Brazil",
+    nationality: "Italy",
+    height: "187 cm",
+    weight: "83 kg",
+  },
+  {
+    player_id: 254,
+    player_name: "Gianluigi Buffon",
+    firstname: "Gianluigi",
+    lastname: "Buffon",
+    number: null,
+    position: "Goalkeeper",
+    age: 41,
+    birth_date: "28/01/1978",
+    birth_place: "Carrara",
+    birth_country: "Italy",
+    nationality: "Italy",
+    height: "192 cm",
+    weight: "92 kg",
+  },
+  {
+    player_id: 273,
+    player_name: "Marco Verratti",
+    firstname: "Marco",
+    lastname: "Verratti",
+    number: null,
+    position: "Midfielder",
+    age: 27,
+    birth_date: "05/11/1992",
+    birth_place: "Pescara",
+    birth_country: "Italy",
+    nationality: "Italy",
+    height: "165 cm",
+    weight: "60 kg",
+  },
+  {
+    player_id: 99999,
+    player_name: "L. Messi",
+    firstname: "Lionel Andrés",
+    lastname: "Messi Cuccittini",
+    number: null,
+    position: "Attacker",
+    age: 32,
+    birth_date: "24/06/1987",
+    birth_place: "Rosario",
+    birth_country: "Argentina",
+    nationality: "Argentina",
+    height: "170 cm",
+    weight: "72 kg",
+  },
+  {
+    player_id: 999999,
+    player_name: "L. Messi",
+    firstname: "Lionel Andrés",
+    lastname: "Messi Cuccittini",
+    number: null,
+    position: "Attacker",
+    age: 32,
+    birth_date: "24/06/1987",
+    birth_place: "Rosario",
+    birth_country: "Argentina",
+    nationality: "Argentina",
+    height: "170 cm",
+    weight: "72 kg",
+  },
+  {
+    player_id: 9999999,
+    player_name: "L. Messi",
+    firstname: "Lionel Andrés",
+    lastname: "Messi Cuccittini",
+    number: null,
+    position: "Attacker",
+    age: 32,
+    birth_date: "24/06/1987",
+    birth_place: "Rosario",
+    birth_country: "Argentina",
+    nationality: "Argentina",
+    height: "170 cm",
+    weight: "72 kg",
+  },
+  {
+    player_id: 99999999,
+    player_name: "L. Messi",
+    firstname: "Lionel Andrés",
+    lastname: "Messi Cuccittini",
+    number: null,
+    position: "Attacker",
+    age: 32,
+    birth_date: "24/06/1987",
+    birth_place: "Rosario",
+    birth_country: "Argentina",
+    nationality: "Argentina",
+    height: "170 cm",
+    weight: "72 kg",
+  },
+  {
+    player_id: 999999999,
+    player_name: "L. Messi",
+    firstname: "Lionel Andrés",
+    lastname: "Messi Cuccittini",
+    number: null,
+    position: "Attacker",
+    age: 32,
+    birth_date: "24/06/1987",
+    birth_place: "Rosario",
+    birth_country: "Argentina",
+    nationality: "Argentina",
+    height: "170 cm",
+    weight: "72 kg",
+  },
+];
 
 export default function TeamForm(props: Props) {
   const classes = useStyles();
@@ -120,8 +318,8 @@ export default function TeamForm(props: Props) {
   });
 
   useEffect(() => {
-    if (params.name) {
-      const team = props.teams.find((team) => team.name === params.name);
+    if (params.id) {
+      const team = props.teams.find((team) => team.id === Number(params.id));
       if (!team) {
         history.push("/");
       } else {
@@ -139,38 +337,41 @@ export default function TeamForm(props: Props) {
         }
       }
     }
-  }, [history, params.name, props.teams, reset]);
+  }, [history, params.id, props.teams, reset]);
 
   const onSubmit = (teamData: Team) => {
+    teamData.id = params.id ? Number(params.id) : Date.now();
     teamData.squad = squad;
-    const teamIndex = props.teams.findIndex(
-      (team) => team.name === teamData.name
-    );
-    if (teamIndex !== -1 && !params.name) {
-      alert("Team exists");
-    } else if (teamIndex !== -1 && params.name) {
+    if (params.id) {
+      const teamIndex = props.teams.findIndex(
+        (team) => team.id === teamData.id
+      );
       const teams = [...props.teams];
       teams[teamIndex] = teamData;
       props.updateTeams(teams);
-      history.push("/");
     } else {
       const teams = [...props.teams, teamData];
       props.updateTeams(teams);
-      history.push("/");
     }
+    history.push("/");
   };
 
   const searchPlayer = (event: FocusEvent<HTMLInputElement>) => {
-    const playerName = event.target.value;
+    /*const playerName = event.target.value;
     api.get(`players/search/${playerName}`).then((response) => {
       if (response.data.api.results) {
-        let apiPlayers: Player[] = response.data.api.players;
+        let apiPlayers = response.data.api.players;
         apiPlayers = apiPlayers.filter(
           (item) => !disabledPlayers.includes(item.player_id)
         );
         setPlayers(apiPlayers);
       }
-    });
+    });*/
+    let apiPlayers = fakePlayers;
+    apiPlayers = apiPlayers.filter(
+      (item) => !disabledPlayers.includes(item.player_id)
+    );
+    setPlayers(apiPlayers);
   };
 
   const disablePlayer = (idPlayer: number) => {

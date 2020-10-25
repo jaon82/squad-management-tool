@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -15,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     height: 50,
     margin: theme.spacing(1, 0),
     cursor: "pointer",
+    padding: theme.spacing(0, 2),
   },
   teamName: {
     font: "inherit",
@@ -37,6 +39,7 @@ interface DataProps {
 
 export default function Average(props: DataProps) {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <Grid item className={classes.teamsContainer}>
@@ -44,16 +47,21 @@ export default function Average(props: DataProps) {
         <Grid
           container
           direction="row"
-          justify="space-around"
+          justify="space-between"
           alignItems="center"
           className={classes.teamContainer}
           key={item.id}
+          onClick={() => {
+            history.push(`/team/${item.id}`);
+          }}
         >
           <Grid item>
             <Typography className={classes.teamName}>{item.name}</Typography>
           </Grid>
           <Grid item>
-            <Typography className={classes.avg}>{item.avg}</Typography>
+            <Typography className={classes.avg}>
+              {item.avg.toFixed(1)}
+            </Typography>
           </Grid>
         </Grid>
       ))}

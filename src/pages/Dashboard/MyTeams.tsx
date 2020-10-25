@@ -35,10 +35,10 @@ function MyTeams(props: Props) {
   const history = useHistory();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogText, setDialogText] = useState("");
-  const [teamToRemove, setTeamToRemove] = useState("");
+  const [teamToRemove, setTeamToRemove] = useState(0);
 
-  const deleteTeam = (teamName: string) => {
-    setTeamToRemove(teamName);
+  const deleteTeam = (teamName: string, id: number) => {
+    setTeamToRemove(id);
     setDialogText(`Do you want to remove team ${teamName}?`);
     setDialogOpen(true);
   };
@@ -49,9 +49,7 @@ function MyTeams(props: Props) {
 
   const dialogConfirm = () => {
     setDialogOpen(false);
-    const teamIndex = props.teams.findIndex(
-      (team) => team.name === teamToRemove
-    );
+    const teamIndex = props.teams.findIndex((team) => team.id === teamToRemove);
     if (teamIndex !== -1) {
       let teams = [...props.teams];
       teams.splice(teamIndex, 1);
@@ -86,7 +84,8 @@ function MyTeams(props: Props) {
           {
             icon: "delete",
             tooltip: "Delete",
-            onClick: (event, rowData: any) => deleteTeam(rowData.name),
+            onClick: (event, rowData: any) =>
+              deleteTeam(rowData.name, rowData.id),
           },
           {
             icon: "share",
@@ -98,7 +97,7 @@ function MyTeams(props: Props) {
             icon: "edit",
             tooltip: "Edit",
             onClick: (event, rowData: any) =>
-              history.push(`/team/${rowData.name}`),
+              history.push(`/team/${rowData.id}`),
           },
         ]}
       />

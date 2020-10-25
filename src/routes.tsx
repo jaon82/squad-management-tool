@@ -12,7 +12,7 @@ function Routes() {
       <Switch>
         <AppRoute exact path="/" component={Dashboard} />
         <AppRoute exact path="/team" component={TeamForm} />
-        <AppRoute exact path="/team/:name" component={TeamForm} />
+        <AppRoute exact path="/team/:id" component={TeamForm} />
       </Switch>
     </BrowserRouter>
   );

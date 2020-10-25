@@ -7,6 +7,8 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
 import Average from "./Average";
+import Props from "../../helpers/Props";
+import Player from "../../helpers/Player";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -23,16 +25,17 @@ interface Data {
   avg: number;
 }
 
-const data: Data[] = [
-  { id: 1, name: "Barcelona", avg: 31.9 },
-  { id: 2, name: "Real Madrid", avg: 31.7 },
-  { id: 3, name: "Milan", avg: 31.7 },
-  { id: 4, name: "Liverpool", avg: 31.7 },
-  { id: 5, name: "Bayern Munich", avg: 31.7 },
-];
-
-export default function TopFive() {
+export default function TopFive(props: Props) {
   const classes = useStyles();
+  const teamsAge = props.teams.map((team) => ({
+    id: team.id,
+    name: team.name,
+    avg: team.squad.reduce((sum, player: Player) => sum + player.age, 0) / 11,
+  }));
+
+  const highestAge = [...teamsAge].sort((a, b) => b.avg - a.avg).slice(0, 5);
+
+  const lowestAge = [...teamsAge].sort((a, b) => a.avg - b.avg).slice(0, 5);
 
   return (
     <Card>
@@ -57,7 +60,7 @@ export default function TopFive() {
                   Highest avg age
                 </Typography>
               </Grid>
-              <Average data={data} />
+              <Average data={highestAge} />
             </Grid>
           </Grid>
           <Grid item md={6} xs={12}>
@@ -72,7 +75,7 @@ export default function TopFive() {
                   Lowest avg age
                 </Typography>
               </Grid>
-              <Average data={data} />
+              <Average data={lowestAge} />
             </Grid>
           </Grid>
         </Grid>

@@ -37,7 +37,7 @@ function Dashboard(props: Props) {
           className={classes.root}
         >
           <Grid item>
-            <TopFive />
+            <TopFive {...props} />
           </Grid>
           <Grid item xs>
             <PickedPlayer />
