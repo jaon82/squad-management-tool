@@ -1,13 +1,15 @@
-import React, { DragEvent } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { DragEvent, Fragment } from "react";
+import { makeStyles, Theme, withStyles } from "@material-ui/core/styles";
 import { useWatch, Control } from "react-hook-form";
 import Grid from "@material-ui/core/Grid";
 import Add from "@material-ui/icons/Add";
+import Tooltip from "@material-ui/core/Tooltip";
+import Typography from "@material-ui/core/Typography";
 
 import Team from "../../helpers/Team";
 import Player from "../../helpers/Player";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     height: "100%",
     padding: theme.spacing(5, 0),
@@ -44,6 +46,16 @@ interface PositionProps {
   playerIndex: number;
   player: Player;
 }
+
+const HtmlTooltip = withStyles((theme: Theme) => ({
+  tooltip: {
+    backgroundColor: "#f5f5f9",
+    color: "rgba(0, 0, 0, 0.87)",
+    maxWidth: 220,
+    fontSize: theme.typography.pxToRem(12),
+    border: "1px solid #dadde9",
+  },
+}))(Tooltip);
 
 export default function Formation({
   control,
@@ -87,20 +99,33 @@ export default function Formation({
 
     return (
       <Grid item className={classes.playerContainer}>
-        <div
-          className={classes.playerBackground}
-          onDrop={(event) => onDropHandler(event, playerIndex)}
-          onDragOver={onDragOverHandler}
+        <HtmlTooltip
+          title={
+            <Fragment>
+              <Typography color="inherit">{player.player_name}</Typography>
+              <b>Country: </b> {player.birth_country}
+              <br />
+              <b>Birth Date: </b> {player.birth_date}
+              <br />
+              <b>Age: </b> {player.age}
+            </Fragment>
+          }
         >
-          {initials}
-          <Add
-            fontSize="large"
-            style={{
-              color: "#fff",
-              display: player ? "none" : "",
-            }}
-          />
-        </div>
+          <div
+            className={classes.playerBackground}
+            onDrop={(event) => onDropHandler(event, playerIndex)}
+            onDragOver={onDragOverHandler}
+          >
+            {initials}
+            <Add
+              fontSize="large"
+              style={{
+                color: "#fff",
+                display: player ? "none" : "",
+              }}
+            />
+          </div>
+        </HtmlTooltip>
       </Grid>
     );
   }
