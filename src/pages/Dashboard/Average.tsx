@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
     background: "#e9e0e6",
     padding: theme.spacing(0, 1),
     borderRadius: 5,
+    minHeight: "20vh",
   },
   teamContainer: {
     background: "#fff",
