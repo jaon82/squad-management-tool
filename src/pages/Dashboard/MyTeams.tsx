@@ -62,8 +62,16 @@ function MyTeams(props: Props) {
       <MaterialTable
         title="My teams"
         columns={[
-          { title: "Name", field: "name" },
-          { title: "Description", field: "description" },
+          {
+            title: "Name",
+            field: "name",
+            customSort: (a, b) => a.name.localeCompare(b.name),
+          },
+          {
+            title: "Description",
+            field: "description",
+            customSort: (a, b) => a.description.localeCompare(b.description),
+          },
         ]}
         data={props.teams}
         options={{

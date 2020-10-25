@@ -102,12 +102,12 @@ export default function Formation({
         <HtmlTooltip
           title={
             <Fragment>
-              <Typography color="inherit">{player.player_name}</Typography>
-              <b>Country: </b> {player.birth_country}
+              <Typography color="inherit">{player?.player_name}</Typography>
+              <b>Country: </b> {player?.birth_country}
               <br />
-              <b>Birth Date: </b> {player.birth_date}
+              <b>Birth Date: </b> {player?.birth_date}
               <br />
-              <b>Age: </b> {player.age}
+              <b>Age: </b> {player?.age}
             </Fragment>
           }
         >
