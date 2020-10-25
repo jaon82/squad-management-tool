@@ -44,28 +44,33 @@ export default function Average(props: DataProps) {
 
   return (
     <Grid item className={classes.teamsContainer}>
-      {props.data.map((item) => (
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="center"
-          className={classes.teamContainer}
-          key={item.id}
-          onClick={() => {
-            history.push(`/team/${item.id}`);
-          }}
-        >
-          <Grid item>
-            <Typography className={classes.teamName}>{item.name}</Typography>
-          </Grid>
-          <Grid item>
-            <Typography className={classes.avg}>
-              {item.avg.toFixed(1)}
-            </Typography>
-          </Grid>
-        </Grid>
-      ))}
+      {props.data.map(
+        (item) =>
+          item.avg > 0 && (
+            <Grid
+              container
+              direction="row"
+              justify="space-between"
+              alignItems="center"
+              className={classes.teamContainer}
+              key={item.id}
+              onClick={() => {
+                history.push(`/team/${item.id}`);
+              }}
+            >
+              <Grid item>
+                <Typography className={classes.teamName}>
+                  {item.name}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography className={classes.avg}>
+                  {item.avg.toFixed(1)}
+                </Typography>
+              </Grid>
+            </Grid>
+          )
+      )}
     </Grid>
   );
 }

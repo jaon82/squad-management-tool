@@ -8,7 +8,6 @@ import Typography from "@material-ui/core/Typography";
 
 import Average from "./Average";
 import Props from "../../helpers/Props";
-import Player from "../../helpers/Player";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -30,7 +29,7 @@ export default function TopFive(props: Props) {
   const teamsAge = props.teams.map((team) => ({
     id: team.id,
     name: team.name,
-    avg: team.squad.reduce((sum, player: Player) => sum + player.age, 0) / 11,
+    avg: team.squad.reduce((sum, player) => sum + player.age, 0) / 11,
   }));
 
   const highestAge = [...teamsAge].sort((a, b) => b.avg - a.avg).slice(0, 5);

@@ -29,6 +29,7 @@ import Props from "../../helpers/Props";
 import Formation from "./Formation";
 
 import api from "../../services/api";
+import CustomAlert from "../../components/CustomAlert";
 
 const useStyles = makeStyles((theme) => ({
   marginTop: {
@@ -271,6 +272,8 @@ const fakePlayers: Player[] = [
   },
 ];
 
+type AlertTypes = "warning" | "error" | "success" | "info" | undefined;
+
 export default function TeamForm(props: Props) {
   const classes = useStyles();
   const history = useHistory();
@@ -289,7 +292,10 @@ export default function TeamForm(props: Props) {
   ];
   const [players, setPlayers] = useState<Player[]>([]);
   const [disabledPlayers, setDisabledPlayers] = useState<number[]>([]);
-  const [squad, setSquad] = useState<any[]>(Array(11));
+  const [squad, setSquad] = useState<Player[]>(Array(11));
+  const [openAlert, setOpenAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertType, setAlertType] = useState<AlertTypes>();
 
   const defaultValues = {
     name: "",
@@ -339,9 +345,37 @@ export default function TeamForm(props: Props) {
     }
   }, [history, params.id, props.teams, reset]);
 
+  const squadIsEmpty = () => {
+    const players = squad.reduce(
+      (sum, player) => sum + (player?.player_id ? 1 : 0),
+      0
+    );
+    return !players;
+  };
+
+  const validSquad = () => {
+    let valid = true;
+    for (let player of squad) {
+      if (!player) {
+        valid = false;
+      }
+    }
+    return squadIsEmpty() || valid;
+  };
+
   const onSubmit = (teamData: Team) => {
     teamData.id = params.id ? Number(params.id) : Date.now();
-    teamData.squad = squad;
+    if (!validSquad()) {
+      setAlertMessage("Please fill all positions before save.");
+      setAlertType("warning");
+      setOpenAlert(true);
+      return;
+    }
+    if (squadIsEmpty()) {
+      teamData.squad = [];
+    } else {
+      teamData.squad = squad;
+    }
     if (params.id) {
       const teamIndex = props.teams.findIndex(
         (team) => team.id === teamData.id
@@ -383,8 +417,12 @@ export default function TeamForm(props: Props) {
     });
   };
 
-  const updateSquad = (squad: any[]) => {
+  const updateSquad = (squad: Player[]) => {
     setSquad(squad);
+  };
+
+  const alertClose = () => {
+    setOpenAlert(false);
   };
 
   return (
@@ -657,6 +695,12 @@ export default function TeamForm(props: Props) {
           </Grid>
         </form>
       </CardContent>
+      <CustomAlert
+        open={openAlert}
+        message={alertMessage}
+        type={alertType}
+        close={alertClose}
+      />
     </Card>
   );
 }

@@ -1,3 +1,5 @@
+import Player from "./Player";
+
 export default interface Team {
   id: number;
   name: string;
@@ -6,5 +8,5 @@ export default interface Team {
   type: string;
   tags: string[];
   formation: string;
-  squad: any[];
+  squad: Player[];
 }
