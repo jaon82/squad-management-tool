@@ -100,6 +100,7 @@ function MyTeams(props: Props) {
               history.push(`/team/${rowData.id}`),
           },
         ]}
+        localization={{ header: { actions: "" } }}
       />
       <Dialog
         open={dialogOpen}
