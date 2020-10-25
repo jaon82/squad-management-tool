@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Grid from "@material-ui/core/Grid";
 import Avatar from "@material-ui/core/Avatar";
+import Props from "../../helpers/Props";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -81,8 +82,51 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PickedPlayer() {
+interface PickedPlayer {
+  id: number;
+  name: string;
+  total: number;
+}
+
+export default function PickedPlayer(props: Props) {
   const classes = useStyles();
+
+  const getPlayerInitials = (name: string) => {
+    const playerName = name.split(" ");
+    const initials = `${playerName[0]?.charAt(0)} ${playerName[
+      playerName.length - 1
+    ]?.charAt(0)}`;
+    return initials;
+  };
+
+  const pickedPlayers: PickedPlayer[] = [];
+  for (let team of props.teams) {
+    for (let player of team.squad) {
+      const playerIndex = pickedPlayers.findIndex(
+        (item) => item.id === player.player_id
+      );
+      if (playerIndex !== -1) {
+        pickedPlayers[playerIndex].total++;
+      } else {
+        pickedPlayers.push({
+          id: player.player_id,
+          name: getPlayerInitials(player.player_name),
+          total: 1,
+        });
+      }
+    }
+  }
+  pickedPlayers.sort((a, b) => b.total - a.total);
+  const mostpicked = pickedPlayers.shift();
+  const mostPickedPercent = (
+    ((mostpicked?.total || 0) / props.teams.length) *
+    100
+  ).toFixed(0);
+  const lesspicked = pickedPlayers.pop();
+  const lessPickedPercent = (
+    ((lesspicked?.total || 0) / props.teams.length) *
+    100
+  ).toFixed(0);
 
   return (
     <Grid
@@ -95,9 +139,13 @@ export default function PickedPlayer() {
       <Grid item md={6} xs={12} className={classes.mostPickedContainer}>
         <div className={clsx(classes.mostPicked, classes.pickedPlayer)}>
           <div className={classes.pickedPlayerTitle}>Most picked player</div>
-          <div className={classes.pickedPlayerPercentage}>75%</div>
+          <div className={classes.pickedPlayerPercentage}>
+            {mostPickedPercent}%
+          </div>
           <div className={classes.pickedPlayerAvatarContainer}>
-            <Avatar className={classes.pickedPlayerAvatar}>CR</Avatar>
+            <Avatar className={classes.pickedPlayerAvatar}>
+              {mostpicked?.name}
+            </Avatar>
           </div>
         </div>
         <div className={classes.midfieldLeft}></div>
@@ -106,9 +154,13 @@ export default function PickedPlayer() {
         <div className={classes.midfieldRight}></div>
         <div className={clsx(classes.lessPicked, classes.pickedPlayer)}>
           <div className={classes.pickedPlayerTitle}>Less picked player</div>
-          <div className={classes.pickedPlayerPercentage}>25%</div>
+          <div className={classes.pickedPlayerPercentage}>
+            {lessPickedPercent}%
+          </div>
           <div className={classes.pickedPlayerAvatarContainer}>
-            <Avatar className={classes.pickedPlayerAvatar}>FM</Avatar>
+            <Avatar className={classes.pickedPlayerAvatar}>
+              {lesspicked?.name}
+            </Avatar>
           </div>
         </div>
       </Grid>

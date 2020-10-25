@@ -40,7 +40,7 @@ function Dashboard(props: Props) {
             <TopFive {...props} />
           </Grid>
           <Grid item xs>
-            <PickedPlayer />
+            <PickedPlayer {...props} />
           </Grid>
         </Grid>
       </Grid>
