@@ -59,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
   pickedPlayerTitle: {
     color: "#fff",
+    marginBottom: theme.spacing(5),
   },
   pickedPlayerPercentage: {
     borderBottom: "solid thin",
@@ -79,6 +80,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: -20,
     background: "transparent",
     fontSize: 64,
+  },
+  hide: {
+    display: "none",
   },
 }));
 
@@ -139,7 +143,11 @@ export default function PickedPlayer(props: Props) {
       <Grid item md={6} xs={12} className={classes.mostPickedContainer}>
         <div className={clsx(classes.mostPicked, classes.pickedPlayer)}>
           <div className={classes.pickedPlayerTitle}>Most picked player</div>
-          <div className={classes.pickedPlayerPercentage}>
+          <div
+            className={clsx(classes.pickedPlayerPercentage, {
+              [classes.hide]: pickedPlayers.length === 0,
+            })}
+          >
             {mostPickedPercent}%
           </div>
           <div className={classes.pickedPlayerAvatarContainer}>
@@ -154,7 +162,11 @@ export default function PickedPlayer(props: Props) {
         <div className={classes.midfieldRight}></div>
         <div className={clsx(classes.lessPicked, classes.pickedPlayer)}>
           <div className={classes.pickedPlayerTitle}>Less picked player</div>
-          <div className={classes.pickedPlayerPercentage}>
+          <div
+            className={clsx(classes.pickedPlayerPercentage, {
+              [classes.hide]: pickedPlayers.length === 0,
+            })}
+          >
             {lessPickedPercent}%
           </div>
           <div className={classes.pickedPlayerAvatarContainer}>
