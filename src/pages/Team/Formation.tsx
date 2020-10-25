@@ -1,10 +1,11 @@
-import React from "react";
+import React, { DragEvent } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useWatch, Control } from "react-hook-form";
 import Grid from "@material-ui/core/Grid";
 import Add from "@material-ui/icons/Add";
 
 import Team from "../../helpers/Team";
+import Player from "../../helpers/Player";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,32 +27,77 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    color: "#fff",
+    fontWeight: 500,
   },
 }));
 
 interface Props {
   control: Control<Team>;
+  players: Player[];
+  disablePlayer: (idPlayer: number) => void;
+  squad: any[];
+  updateSquad: (squad: any[]) => void;
 }
 
-export default function Formation({ control }: Props) {
+interface PositionProps {
+  playerIndex: number;
+  player: Player;
+}
+
+export default function Formation({
+  control,
+  players,
+  disablePlayer,
+  squad,
+  updateSquad,
+}: Props) {
   const classes = useStyles();
 
   const formation = useWatch({
     control,
     name: "formation",
-    defaultValue: "",
+    defaultValue: control.getValues("formation"),
   });
 
   const fieldZones = formation ? formation.split(" - ").reverse() : [];
 
-  function PlayerContainer() {
+  const onDragOverHandler = (ev: DragEvent) => {
+    ev.preventDefault();
+    ev.dataTransfer.dropEffect = "move";
+  };
+
+  const onDropHandler = (ev: DragEvent, playerIndex: number) => {
+    ev.preventDefault();
+    const playerId = Number(ev.dataTransfer.getData("text"));
+    const player = players.find((item) => item.player_id === playerId);
+    const actualSquad = [...squad];
+    actualSquad[playerIndex] = player;
+    updateSquad(actualSquad);
+    disablePlayer(playerId);
+  };
+
+  function PlayerContainer({ playerIndex, player }: PositionProps) {
+    const playerName = player?.player_name.split(" ") || null;
+    const initials = playerName
+      ? `${playerName[0]?.charAt(0)} ${playerName[
+          playerName.length - 1
+        ]?.charAt(0)}`
+      : null;
+
     return (
       <Grid item className={classes.playerContainer}>
-        <div className={classes.playerBackground}>
+        <div
+          className={classes.playerBackground}
+          onDrop={(event) => onDropHandler(event, playerIndex)}
+          onDragOver={onDragOverHandler}
+        >
+          {initials}
           <Add
             fontSize="large"
             style={{
               color: "#fff",
+              display: player ? "none" : "",
             }}
           />
         </div>
@@ -59,13 +105,20 @@ export default function Formation({ control }: Props) {
     );
   }
 
-  const items = fieldZones.map((zone, index) => {
-    let zoneItems = [];
-    for (let i = 0; i < Number(zone); i++) {
-      zoneItems.push(<PlayerContainer key={i} />);
+  let positions: any[] = [];
+  for (let i = 0; i < 10; i++) {
+    positions.push(
+      <PlayerContainer key={i} playerIndex={i} player={squad[i]} />
+    );
+  }
+
+  const showPositions = (zone: number, index: number) => {
+    let start = 0;
+    for (let i = 0; i < index; i++) {
+      start += Number(fieldZones[i]);
     }
-    return zoneItems;
-  });
+    return positions.slice(start, start + zone);
+  };
 
   return (
     <Grid
@@ -84,10 +137,12 @@ export default function Formation({ control }: Props) {
           alignItems="center"
           key={index}
         >
-          {items[index]}
+          {showPositions(Number(zone), index)}
         </Grid>
       ))}
-      {formation && <PlayerContainer />}
+      {formation && (
+        <PlayerContainer key={11} playerIndex={10} player={squad[10]} />
+      )}
     </Grid>
   );
 }

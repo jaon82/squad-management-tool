@@ -90,6 +90,8 @@ export default function TeamForm(props: Props) {
     "5 - 4 - 1",
   ];
   const [players, setPlayers] = useState<Player[]>([]);
+  const [disabledPlayers, setDisabledPlayers] = useState<number[]>([]);
+  const [squad, setSquad] = useState<any[]>(Array(11));
 
   const defaultValues = {
     name: "",
@@ -122,20 +124,25 @@ export default function TeamForm(props: Props) {
       const team = props.teams.find((team) => team.name === params.name);
       if (!team) {
         history.push("/");
+      } else {
+        const defaultValues = {
+          name: team.name,
+          description: team.description,
+          website: team.website,
+          type: team.type,
+          tags: team.tags,
+          formation: team.formation,
+        };
+        reset(defaultValues);
+        if (team.squad) {
+          setSquad(team.squad);
+        }
       }
-      const defaultValues = {
-        name: team?.name,
-        description: team?.description,
-        website: team?.website,
-        type: team?.type,
-        tags: team?.tags,
-        formation: team?.formation,
-      };
-      reset(defaultValues);
     }
   }, [history, params.name, props.teams, reset]);
 
   const onSubmit = (teamData: Team) => {
+    teamData.squad = squad;
     const teamIndex = props.teams.findIndex(
       (team) => team.name === teamData.name
     );
@@ -157,10 +164,26 @@ export default function TeamForm(props: Props) {
     const playerName = event.target.value;
     api.get(`players/search/${playerName}`).then((response) => {
       if (response.data.api.results) {
-        const apiPlayers = response.data.api.players;
+        let apiPlayers: Player[] = response.data.api.players;
+        apiPlayers = apiPlayers.filter(
+          (item) => !disabledPlayers.includes(item.player_id)
+        );
         setPlayers(apiPlayers);
       }
     });
+  };
+
+  const disablePlayer = (idPlayer: number) => {
+    let actualPlayers = [...players];
+    actualPlayers = actualPlayers.filter((item) => item.player_id !== idPlayer);
+    setPlayers(actualPlayers);
+    setDisabledPlayers((prevState) => {
+      return [...prevState, idPlayer];
+    });
+  };
+
+  const updateSquad = (squad: any[]) => {
+    setSquad(squad);
   };
 
   return (
@@ -367,7 +390,13 @@ export default function TeamForm(props: Props) {
                     />
                   </Grid>
                   <Grid item className={clsx(classes.marginTop, classes.field)}>
-                    <Formation control={control} />
+                    <Formation
+                      control={control}
+                      players={players}
+                      disablePlayer={disablePlayer}
+                      squad={squad}
+                      updateSquad={updateSquad}
+                    />
                   </Grid>
                   <Grid item className={classes.marginTop}>
                     <Button

@@ -13,11 +13,11 @@ const useStyles = makeStyles((theme) => ({
     border: "dashed thin #dadada",
     background: "linear-gradient(0deg, #e5e5e5, #fff)",
     margin: theme.spacing(2, 1, 0, 0),
+    cursor: "move",
   },
   playerContainer: {
     height: 50,
     margin: theme.spacing(1, 0),
-    cursor: "pointer",
   },
   label: {
     marginRight: 10,
@@ -37,15 +37,12 @@ interface DataProps {
 export default function PlayerCard(props: DataProps) {
   const classes = useStyles();
 
-  const onDragPlayerHandler = (ev: DragEvent, player: Player) => {
-    console.log("event", ev);
-    console.log("player", player);
-    ev.dataTransfer.setData("playerID", player.player_id.toString());
-    ev.dataTransfer.setData("playerName", player.player_name);
+  const onDragHandler = (ev: DragEvent, player: Player) => {
     var img = new Image();
     img.src = playerPlaceholder;
     ev.dataTransfer.setDragImage(img, 50, 50);
     ev.dataTransfer.setData("text/plain", player.player_id.toString());
+    ev.dataTransfer.dropEffect = "move";
   };
 
   return (
@@ -53,7 +50,7 @@ export default function PlayerCard(props: DataProps) {
       item
       className={classes.container}
       draggable="true"
-      onDragStart={(event) => onDragPlayerHandler(event, props.data)}
+      onDragStart={(event) => onDragHandler(event, props.data)}
     >
       <Grid
         container

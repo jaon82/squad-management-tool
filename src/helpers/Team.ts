@@ -5,4 +5,5 @@ export default interface Team {
   type: string;
   tags: string[];
   formation: string;
+  squad: any[];
 }
