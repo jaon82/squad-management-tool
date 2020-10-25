@@ -409,7 +409,10 @@ export default function TeamForm(props: Props) {
                           <Select
                             variant="outlined"
                             className={classes.formationSelect}
-                            onChange={(e) => props.onChange(e.target.value)}
+                            onChange={(e) => {
+                              setSquad(Array(11));
+                              props.onChange(e.target.value);
+                            }}
                             value={props.value}
                           >
                             <MenuItem value="">
