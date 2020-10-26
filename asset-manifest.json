@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/squad-management-tool/static/css/main.b6bc4ccb.chunk.css",
-    "main.js": "/squad-management-tool/static/js/main.ed5cb3a8.chunk.js",
-    "main.js.map": "/squad-management-tool/static/js/main.ed5cb3a8.chunk.js.map",
+    "main.js": "/squad-management-tool/static/js/main.e6b7b5b2.chunk.js",
+    "main.js.map": "/squad-management-tool/static/js/main.e6b7b5b2.chunk.js.map",
     "runtime-main.js": "/squad-management-tool/static/js/runtime-main.4f4aad8c.js",
     "runtime-main.js.map": "/squad-management-tool/static/js/runtime-main.4f4aad8c.js.map",
     "static/js/2.4299b139.chunk.js": "/squad-management-tool/static/js/2.4299b139.chunk.js",
@@ -14,7 +14,7 @@
     "static/js/5.a232dff1.chunk.js": "/squad-management-tool/static/js/5.a232dff1.chunk.js",
     "static/js/5.a232dff1.chunk.js.map": "/squad-management-tool/static/js/5.a232dff1.chunk.js.map",
     "index.html": "/squad-management-tool/index.html",
-    "precache-manifest.85c64357e5763436d8b15e04cc5835cd.js": "/squad-management-tool/precache-manifest.85c64357e5763436d8b15e04cc5835cd.js",
+    "precache-manifest.f41ffcde8842579791aafd3a02371367.js": "/squad-management-tool/precache-manifest.f41ffcde8842579791aafd3a02371367.js",
     "service-worker.js": "/squad-management-tool/service-worker.js",
     "static/css/main.b6bc4ccb.chunk.css.map": "/squad-management-tool/static/css/main.b6bc4ccb.chunk.css.map",
     "static/js/2.4299b139.chunk.js.LICENSE.txt": "/squad-management-tool/static/js/2.4299b139.chunk.js.LICENSE.txt",
@@ -26,6 +26,6 @@
     "static/js/runtime-main.4f4aad8c.js",
     "static/js/2.4299b139.chunk.js",
     "static/css/main.b6bc4ccb.chunk.css",
-    "static/js/main.ed5cb3a8.chunk.js"
+    "static/js/main.e6b7b5b2.chunk.js"
   ]
 }
