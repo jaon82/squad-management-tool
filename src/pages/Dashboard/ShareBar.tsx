@@ -32,7 +32,7 @@ interface Props {
 
 export default function ShareBar({ team }: Props) {
   const classes = useStyles();
-  const shareUrl = `${document.location.href}team/${team?.id}`;
+  const shareUrl = `${team?.website}`;
   const title = team?.name;
 
   return (
