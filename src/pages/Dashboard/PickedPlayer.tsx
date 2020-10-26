@@ -60,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
   pickedPlayerTitle: {
     color: "#fff",
     marginBottom: theme.spacing(5),
+    fontSize: theme.typography.h4.fontSize
   },
   pickedPlayerPercentage: {
     borderBottom: "solid thin",
@@ -74,7 +75,6 @@ const useStyles = makeStyles((theme) => ({
     border: "dashed #b665c1",
     height: 120,
     width: 120,
-    position: "absolute",
     left: "50%",
     marginLeft: -60,
     marginTop: -20,
@@ -140,7 +140,7 @@ export default function PickedPlayer(props: Props) {
       alignItems="stretch"
       className={classes.root}
     >
-      <Grid item md={6} xs={12} className={classes.mostPickedContainer}>
+      <Grid item xs={6} className={classes.mostPickedContainer}>
         <div className={clsx(classes.mostPicked, classes.pickedPlayer)}>
           <div className={classes.pickedPlayerTitle}>Most picked player</div>
           <div
@@ -158,7 +158,7 @@ export default function PickedPlayer(props: Props) {
         </div>
         <div className={classes.midfieldLeft}></div>
       </Grid>
-      <Grid item md={6} xs={12} className={classes.lessPickedContainer}>
+      <Grid item xs={6} className={classes.lessPickedContainer}>
         <div className={classes.midfieldRight}></div>
         <div className={clsx(classes.lessPicked, classes.pickedPlayer)}>
           <div className={classes.pickedPlayerTitle}>Less picked player</div>
