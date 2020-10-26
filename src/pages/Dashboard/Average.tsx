@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1, 0),
     cursor: "pointer",
     padding: theme.spacing(0, 2),
+    "&:hover": {
+      border: "solid #e76f8a",
+    },
   },
   teamName: {
     font: "inherit",

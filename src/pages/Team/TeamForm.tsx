@@ -72,6 +72,13 @@ const useStyles = makeStyles((theme) => ({
   hide: {
     display: "none",
   },
+  chip: {
+    backgroundColor: "#d60030",
+    color: "#fff",
+    "& svg": {
+      color: "#fff",
+    },
+  },
 }));
 
 interface RouteParams {
@@ -370,6 +377,7 @@ export default function TeamForm(props: Props) {
                               root: classes.fullHeight,
                               inputRoot: classes.tagInput,
                               chipContainer: classes.fullHeight,
+                              chip: classes.chip,
                             }}
                             onChange={(chips) => props.onChange(chips)}
                             defaultValue={props.value}
