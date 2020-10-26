@@ -101,14 +101,18 @@ export default function Formation({
       <Grid item className={classes.playerContainer}>
         <HtmlTooltip
           title={
-            <Fragment>
-              <Typography color="inherit">{player?.player_name}</Typography>
-              <b>Country: </b> {player?.birth_country}
-              <br />
-              <b>Birth Date: </b> {player?.birth_date}
-              <br />
-              <b>Age: </b> {player?.age}
-            </Fragment>
+            player ? (
+              <Fragment>
+                <Typography color="inherit">{player?.player_name}</Typography>
+                <b>Country: </b> {player?.birth_country}
+                <br />
+                <b>Birth Date: </b> {player?.birth_date}
+                <br />
+                <b>Age: </b> {player?.age}
+              </Fragment>
+            ) : (
+              ""
+            )
           }
         >
           <div
