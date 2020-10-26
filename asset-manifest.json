@@ -1,31 +1,31 @@
 {
   "files": {
     "main.css": "/squad-management-tool/static/css/main.b6bc4ccb.chunk.css",
-    "main.js": "/squad-management-tool/static/js/main.422620cc.chunk.js",
-    "main.js.map": "/squad-management-tool/static/js/main.422620cc.chunk.js.map",
-    "runtime-main.js": "/squad-management-tool/static/js/runtime-main.4f4aad8c.js",
-    "runtime-main.js.map": "/squad-management-tool/static/js/runtime-main.4f4aad8c.js.map",
-    "static/js/2.68283553.chunk.js": "/squad-management-tool/static/js/2.68283553.chunk.js",
-    "static/js/2.68283553.chunk.js.map": "/squad-management-tool/static/js/2.68283553.chunk.js.map",
-    "static/js/3.27f56faf.chunk.js": "/squad-management-tool/static/js/3.27f56faf.chunk.js",
-    "static/js/3.27f56faf.chunk.js.map": "/squad-management-tool/static/js/3.27f56faf.chunk.js.map",
-    "static/js/4.717278d2.chunk.js": "/squad-management-tool/static/js/4.717278d2.chunk.js",
-    "static/js/4.717278d2.chunk.js.map": "/squad-management-tool/static/js/4.717278d2.chunk.js.map",
-    "static/js/5.a232dff1.chunk.js": "/squad-management-tool/static/js/5.a232dff1.chunk.js",
-    "static/js/5.a232dff1.chunk.js.map": "/squad-management-tool/static/js/5.a232dff1.chunk.js.map",
+    "main.js": "/squad-management-tool/static/js/main.8af88b2c.chunk.js",
+    "main.js.map": "/squad-management-tool/static/js/main.8af88b2c.chunk.js.map",
+    "runtime-main.js": "/squad-management-tool/static/js/runtime-main.efbc615c.js",
+    "runtime-main.js.map": "/squad-management-tool/static/js/runtime-main.efbc615c.js.map",
+    "static/js/2.7864a2ba.chunk.js": "/squad-management-tool/static/js/2.7864a2ba.chunk.js",
+    "static/js/2.7864a2ba.chunk.js.map": "/squad-management-tool/static/js/2.7864a2ba.chunk.js.map",
+    "static/js/3.9a3bf573.chunk.js": "/squad-management-tool/static/js/3.9a3bf573.chunk.js",
+    "static/js/3.9a3bf573.chunk.js.map": "/squad-management-tool/static/js/3.9a3bf573.chunk.js.map",
+    "static/js/4.997dabd9.chunk.js": "/squad-management-tool/static/js/4.997dabd9.chunk.js",
+    "static/js/4.997dabd9.chunk.js.map": "/squad-management-tool/static/js/4.997dabd9.chunk.js.map",
+    "static/js/5.9e886a00.chunk.js": "/squad-management-tool/static/js/5.9e886a00.chunk.js",
+    "static/js/5.9e886a00.chunk.js.map": "/squad-management-tool/static/js/5.9e886a00.chunk.js.map",
     "index.html": "/squad-management-tool/index.html",
-    "precache-manifest.3ba327f9eb4926de177716d1d81331b8.js": "/squad-management-tool/precache-manifest.3ba327f9eb4926de177716d1d81331b8.js",
+    "precache-manifest.85ed01c2a4bcf68c88dc34432d2e4a77.js": "/squad-management-tool/precache-manifest.85ed01c2a4bcf68c88dc34432d2e4a77.js",
     "service-worker.js": "/squad-management-tool/service-worker.js",
     "static/css/main.b6bc4ccb.chunk.css.map": "/squad-management-tool/static/css/main.b6bc4ccb.chunk.css.map",
-    "static/js/2.68283553.chunk.js.LICENSE.txt": "/squad-management-tool/static/js/2.68283553.chunk.js.LICENSE.txt",
-    "static/js/3.27f56faf.chunk.js.LICENSE.txt": "/squad-management-tool/static/js/3.27f56faf.chunk.js.LICENSE.txt",
-    "static/js/4.717278d2.chunk.js.LICENSE.txt": "/squad-management-tool/static/js/4.717278d2.chunk.js.LICENSE.txt",
-    "static/js/5.a232dff1.chunk.js.LICENSE.txt": "/squad-management-tool/static/js/5.a232dff1.chunk.js.LICENSE.txt"
+    "static/js/2.7864a2ba.chunk.js.LICENSE.txt": "/squad-management-tool/static/js/2.7864a2ba.chunk.js.LICENSE.txt",
+    "static/js/3.9a3bf573.chunk.js.LICENSE.txt": "/squad-management-tool/static/js/3.9a3bf573.chunk.js.LICENSE.txt",
+    "static/js/4.997dabd9.chunk.js.LICENSE.txt": "/squad-management-tool/static/js/4.997dabd9.chunk.js.LICENSE.txt",
+    "static/js/5.9e886a00.chunk.js.LICENSE.txt": "/squad-management-tool/static/js/5.9e886a00.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.4f4aad8c.js",
-    "static/js/2.68283553.chunk.js",
+    "static/js/runtime-main.efbc615c.js",
+    "static/js/2.7864a2ba.chunk.js",
     "static/css/main.b6bc4ccb.chunk.css",
-    "static/js/main.422620cc.chunk.js"
+    "static/js/main.8af88b2c.chunk.js"
   ]
 }
