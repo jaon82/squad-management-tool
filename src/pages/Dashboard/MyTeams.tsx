@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Add from "@material-ui/icons/Add";
-import MaterialTable from "material-table";
+import MaterialTable, { MTableBodyRow } from "material-table";
 
 import Dialog from "../../components/Dialog";
 
@@ -13,6 +13,19 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       minHeight: "100%",
       background: "#fff",
+    },
+    row: {
+      "& .MuiIcon-root": {
+        visibility: "hidden",
+      },
+      "&:hover .MuiIcon-root": {
+        visibility: "visible",
+      },
+      "&:hover, &:hover .MuiIcon-root": {
+        backgroundColor: "#f9ebf6",
+        color: "#c00077",
+        fontWeight: 500,
+      },
     },
   })
 );
@@ -109,6 +122,9 @@ function MyTeams(props: Props) {
           },
         ]}
         localization={{ header: { actions: "" } }}
+        components={{
+          Row: (props) => <MTableBodyRow {...props} className={classes.row} />,
+        }}
       />
       <Dialog
         open={dialogOpen}
