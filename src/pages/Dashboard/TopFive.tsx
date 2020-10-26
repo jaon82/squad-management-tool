@@ -26,7 +26,8 @@ interface Data {
 
 export default function TopFive(props: Props) {
   const classes = useStyles();
-  const teamsAge = props.teams.map((team) => ({
+  const teamsWithSquad = props.teams.filter((team) => team.squad.length > 0);
+  const teamsAge = teamsWithSquad.map((team) => ({
     id: team.id,
     name: team.name,
     avg: team.squad.reduce((sum, player) => sum + player.age, 0) / 11,
