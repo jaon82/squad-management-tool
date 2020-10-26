@@ -465,18 +465,6 @@ export default function TeamForm(props: Props) {
                       Save
                     </Button>
                   </Grid>
-                  <Grid item className={classes.marginTop}>
-                    <Button
-                      variant="contained"
-                      size="large"
-                      fullWidth
-                      onClick={() => {
-                        history.push("/");
-                      }}
-                    >
-                      Cancel
-                    </Button>
-                  </Grid>
                 </Grid>
               </Grid>
               <Grid item xs={12} sm={5}>
