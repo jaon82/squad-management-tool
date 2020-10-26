@@ -1,4 +1,4 @@
-import React, { FocusEvent, useEffect, useState } from "react";
+import React, { KeyboardEvent, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
@@ -110,6 +110,7 @@ export default function TeamForm(props: Props) {
   const [alertMessage, setAlertMessage] = useState("");
   const [alertType, setAlertType] = useState<AlertTypes>();
   const [showLoader, setShowLoader] = useState(false);
+  const [search, setSearch] = useState("");
 
   const defaultValues = {
     name: "",
@@ -204,8 +205,8 @@ export default function TeamForm(props: Props) {
     history.push("/");
   };
 
-  const searchPlayer = (event: FocusEvent<HTMLInputElement>) => {
-    const playerName = event.target.value;
+  const searchPlayer = () => {
+    const playerName = search.trim();
     if (playerName) {
       setShowLoader(true);
       api.get(`players/search/${playerName}`).then((response) => {
@@ -216,8 +217,16 @@ export default function TeamForm(props: Props) {
           );
           setShowLoader(false);
           setPlayers(apiPlayers);
+          setSearch("");
         }
       });
+    }
+  };
+
+  const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      searchPlayer();
     }
   };
 
@@ -479,7 +488,10 @@ export default function TeamForm(props: Props) {
                       <FormLabel>Search Players</FormLabel>
                       <OutlinedInput
                         placeholder="Ronal"
+                        onChange={(event) => setSearch(event.target.value)}
                         onBlur={searchPlayer}
+                        onKeyPress={onKeyPressHandler}
+                        value={search}
                       />
                     </FormControl>
                   </Grid>
