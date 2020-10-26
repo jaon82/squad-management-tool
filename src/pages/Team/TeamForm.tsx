@@ -19,6 +19,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import ChipInput from "material-ui-chip-input";
 
 import PlayerCard from "./PlayerCard";
@@ -68,6 +69,9 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: "90vh",
     overflowY: "auto",
   },
+  hide: {
+    display: "none",
+  },
 }));
 
 interface RouteParams {
@@ -98,6 +102,7 @@ export default function TeamForm(props: Props) {
   const [openAlert, setOpenAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertType, setAlertType] = useState<AlertTypes>();
+  const [showLoader, setShowLoader] = useState(false);
 
   const defaultValues = {
     name: "",
@@ -195,12 +200,14 @@ export default function TeamForm(props: Props) {
   const searchPlayer = (event: FocusEvent<HTMLInputElement>) => {
     const playerName = event.target.value;
     if (playerName) {
+      setShowLoader(true);
       api.get(`players/search/${playerName}`).then((response) => {
         if (response.data.api.results) {
           let apiPlayers: Player[] = response.data.api.players;
           apiPlayers = apiPlayers.filter(
             (item) => !disabledPlayers.includes(item.player_id)
           );
+          setShowLoader(false);
           setPlayers(apiPlayers);
         }
       });
@@ -487,6 +494,9 @@ export default function TeamForm(props: Props) {
                       classes.playersContainer
                     )}
                   >
+                    <LinearProgress
+                      className={clsx({ [classes.hide]: !showLoader })}
+                    />
                     {players.map((player) => (
                       <PlayerCard data={player} key={player.player_id} />
                     ))}
