@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { MouseEvent, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import Add from "@material-ui/icons/Add";
 import MaterialTable, { MTableBodyRow } from "material-table";
+import Popover from "@material-ui/core/Popover";
 
 import Dialog from "../../components/Dialog";
+import ShareBar from "./ShareBar";
 
 import Props from "../../helpers/Props";
+import Team from "../../helpers/Team";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,12 +46,20 @@ function AddBoxLarge() {
   );
 }
 
+interface AnchorPosition {
+  top: number;
+  left: number;
+}
+
 function MyTeams(props: Props) {
   const classes = useStyles();
   const history = useHistory();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogText, setDialogText] = useState("");
   const [teamToRemove, setTeamToRemove] = useState(0);
+  const [anchorPosition, setAnchorPosition] = useState<AnchorPosition>();
+  const [openShare, setOpenShare] = useState(false);
+  const [teamToShare, setTeamToShare] = useState<Team>();
 
   const deleteTeam = (teamName: string, id: number) => {
     setTeamToRemove(id);
@@ -68,6 +79,16 @@ function MyTeams(props: Props) {
       teams.splice(teamIndex, 1);
       props.updateTeams(teams);
     }
+  };
+
+  const shareTeam = (event: MouseEvent, team: Team) => {
+    setTeamToShare(team);
+    setAnchorPosition({ top: event.clientY, left: event.clientX });
+    setOpenShare(true);
+  };
+
+  const closeShare = () => {
+    setOpenShare(false);
   };
 
   return (
@@ -111,8 +132,7 @@ function MyTeams(props: Props) {
           {
             icon: "share",
             tooltip: "Share",
-            onClick: (event, rowData: any) =>
-              alert("You share " + rowData.name),
+            onClick: (event, rowData: any) => shareTeam(event, rowData),
           },
           {
             icon: "edit",
@@ -133,6 +153,18 @@ function MyTeams(props: Props) {
         title="Remove team?"
         text={dialogText}
       />
+      <Popover
+        open={openShare}
+        onClose={closeShare}
+        anchorReference="anchorPosition"
+        anchorPosition={anchorPosition}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+      >
+        <ShareBar team={teamToShare} />
+      </Popover>
     </div>
   );
 }
