@@ -209,17 +209,37 @@ export default function TeamForm(props: Props) {
     const playerName = search.trim();
     if (playerName) {
       setShowLoader(true);
-      api.get(`players/search/${playerName}`).then((response) => {
-        if (response.data.api.results) {
-          let apiPlayers: Player[] = response.data.api.players;
-          apiPlayers = apiPlayers.filter(
-            (item) => !disabledPlayers.includes(item.player_id)
-          );
+      setPlayers([]);
+      api
+        .get(`players/search/${playerName}`)
+        .then((response) => {
+          if (response.data.api.results) {
+            let apiPlayers: Player[] = response.data.api.players;
+            apiPlayers = apiPlayers.filter(
+              (item) => !disabledPlayers.includes(item.player_id)
+            );
+            setPlayers(apiPlayers);
+          } else {
+            if (response.data.api.players?.length === 0) {
+              setAlertMessage("Player not found");
+              setAlertType("warning");
+              setOpenAlert(true);
+            } else if (response.data.api.error) {
+              setAlertMessage(response.data.api.error);
+              setAlertType("error");
+              setOpenAlert(true);
+            }
+          }
           setShowLoader(false);
-          setPlayers(apiPlayers);
           setSearch("");
-        }
-      });
+        })
+        .catch((error) => {
+          setSearch("");
+          setShowLoader(false);
+          setAlertMessage("Server error.");
+          setAlertType("error");
+          setOpenAlert(true);
+        });
     }
   };
 
