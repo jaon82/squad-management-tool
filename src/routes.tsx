@@ -8,7 +8,7 @@ import TeamForm from "./pages/Team/TeamForm";
 
 function Routes() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Switch>
         <AppRoute exact path="/" component={Dashboard} />
         <AppRoute exact path="/team" component={TeamForm} />
